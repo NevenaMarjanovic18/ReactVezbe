@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NavBar from "./components/NavBar"; //importujemo nasu komponentu
+import Products from "./components/Products";
 
 function App() {
+  //const prom = <h3>Caooooo</h3>;
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar> </NavBar>
+
+      <Products />
     </div>
   );
 }
 
-export default App;
+export default App; //OBAVEZNO, da kada je neka druga komponenta pozove ona mogla da se ucita, tj da se ucita ovo sto se nalazi u return delu
