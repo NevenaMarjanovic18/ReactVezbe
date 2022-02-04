@@ -1,7 +1,9 @@
 import "./App.css";
 import NavBar from "./components/NavBar"; //importujemo nasu komponentu
 import Products from "./components/Products";
+import Korpa from "./components/Korpa";
 import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   //const prom = <h3>Caooooo</h3>;
@@ -9,7 +11,8 @@ function App() {
   //let brojKorpe = 0;
   //const [state, setstate] = useState(initialState);
   const [brojKorpe, setBrojKorpe] = useState(0);
-  const proizv = [
+  const [brojProizv, setBrojProizv] = useState([]);
+  const [proizv, setProizv] = useState([
     {
       id: 1,
       title: "Chocolate",
@@ -31,20 +34,42 @@ function App() {
         "Ice cream is a sweetened frozen food typically eaten as a snack or dessert.",
       amount: 0,
     },
-  ];
-  function dodajProizvod(title) {
+  ]);
+  function refreshKorpa() {
+    let noviProizvodi = proizv.filter((proizvod) => proizvod.amount > 0);
+    setBrojProizv(noviProizvodi);
+  }
+  function dodajProizvod(title, id) {
     console.log("Dodat je proizvod: " + title);
     //brojKorpe++;
     setBrojKorpe(brojKorpe + 1);
-    console.log("Broj proizvoda u korpi: " + brojKorpe);
+    //console.log("Broj proizvoda u korpi: " + brojKorpe);
+    proizv.forEach((proizvod) => {
+      if (proizvod.id === id) {
+        proizvod.amount++;
+      }
+      console.log(proizvod.amount);
+    });
+    refreshKorpa();
+    // proizv.map((proizvod)=>{ fja map nam trazi da uvek vratimo nesto!
+    //  if(proizvod.id===id){
+    //   proizvod.amount++;
+    // }
+    // return blabla;
+    //});
   }
 
   return (
-    <div className="App">
-      <NavBar> brojKorpe={brojKorpe} </NavBar>
-
-      <Products proizv={proizv} onAdd={dodajProizvod} />
-    </div>
+    <BrowserRouter className="App">
+      <NavBar brojKorpe={brojKorpe}></NavBar>
+      <Routes>
+        <Route
+          path="/"
+          element={<Products proizv={proizv} onAdd={dodajProizvod} />}
+        />
+        <Route path="/korpa" element={<Korpa proizv={brojProizv} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

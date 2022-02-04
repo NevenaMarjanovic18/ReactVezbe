@@ -19,7 +19,12 @@ const Products = ({ proizv, onAdd }) => {
     <div className="all-products">
       {proizv.map((proizvod) => {
         return (
-          <OneProduct product={proizvod} key={proizvod.id} onAdd={onAdd} />
+          <OneProduct
+            product={proizvod}
+            key={proizvod.id}
+            onAdd={onAdd}
+            uKorpi={1}
+          />
         );
       })}
       {/*<OneProduct product={proizv[0]} />
